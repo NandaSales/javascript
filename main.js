@@ -1,57 +1,28 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <title>Planetas Seguindo o Mouse</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+const planetas = ['🪐', '🌍', '🌑', '🌕', '🛸', '☄️'];
 
-    body {
-      background-color: black;
-      height: 100vh;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      position: relative;
-      cursor: crosshair;
-    }
+let ultimaCriacao = 0;
+const intervalo = 50; 
 
-    h1 {
-      color: white;
-      text-align: center;
-      margin-top: 50px;
-      font-size: 3em;
-      user-select: none;
-    }
+function criarPlaneta(x, y) {
+  const agora = Date.now();
+  if (agora - ultimaCriacao < intervalo) return;
+  ultimaCriacao = agora;
 
-    .planeta {
-      position: absolute;
-      font-size: 2em;
-      pointer-events: none;
-      animation: desaparecer 2s forwards;
-      will-change: transform, opacity;
-    }
+  const planeta = document.createElement('div');
+  planeta.classList.add('planeta');
+  planeta.textContent = planetas[Math.floor(Math.random() * planetas.length)];
 
-    @keyframes desaparecer {
-      0% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-50px) scale(0.5);
-      }
-    }
-  </style>
-</head>
-<body>
+  const tamanho = 32; 
+  planeta.style.left = (x - tamanho / 2) + 'px';
+  planeta.style.top = (y - tamanho / 2) + 'px';
 
-  <h1>Hello, World!</h1>
+  document.body.appendChild(planeta);
 
-  <script src="main.js"></script>
-</body>
-</html>
+  planeta.addEventListener('animationend', () => {
+    planeta.remove();
+  });
+}
 
+document.addEventListener('mousemove', (e) => {
+  criarPlaneta(e.clientX, e.clientY);
+});
