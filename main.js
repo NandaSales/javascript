@@ -1,35 +1,57 @@
-// Criando um novo elemento 
-let novoElemento = document.createElement('h1');
-// Alterando o conteúdo de texto do elemento
-novoElemento.innerText = 'Hello, World! English! (Inglês) Ok?!';
-// Selecionando o elemento body
-let elementoBody = document.body;
-// Colocando o novo elemento no body
-elementoBody.appendChild(novoElemento);
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Planetas Seguindo o Mouse</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-// Emojis de planetas que serão usados
-const planetas = ['🪐', '🌍', '🌑', '🌕', '🛸', '☄️'];
+    body {
+      background-color: black;
+      height: 100vh;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      position: relative;
+      cursor: crosshair;
+    }
 
-// Função que cria o emoji do planeta na posição do mouse
-function criarPlaneta(x, y) {
-  const planeta = document.createElement('div');
-  planeta.classList.add('planeta');
-  planeta.textContent = planetas[Math.floor(Math.random() * planetas.length)];
+    h1 {
+      color: white;
+      text-align: center;
+      margin-top: 50px;
+      font-size: 3em;
+      user-select: none;
+    }
 
-  // Define posição do planeta
-  planeta.style.left = `${x}px`;
-  planeta.style.top = `${y}px`;
+    .planeta {
+      position: absolute;
+      font-size: 2em;
+      pointer-events: none;
+      animation: desaparecer 2s forwards;
+      will-change: transform, opacity;
+    }
 
-  // Adiciona na tela
-  document.body.appendChild(planeta);
+    @keyframes desaparecer {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.5);
+      }
+    }
+  </style>
+</head>
+<body>
 
-  // Remove depois de 2 segundos
-  setTimeout(() => {
-    planeta.remove();
-  }, 2000);
-}
+  <h1>Hello, World!</h1>
 
-// Evento para seguir o mouse em qualquer lugar da tela
-document.addEventListener('mousemove', (event) => {
-  criarPlaneta(event.clientX, event.clientY);
-});
+  <script src="main.js"></script>
+</body>
+</html>
+
