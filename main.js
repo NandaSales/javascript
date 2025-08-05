@@ -7,32 +7,29 @@ let elementoBody = document.body;
 // Colocando o novo elemento no body
 elementoBody.appendChild(novoElemento);
 
-const titulo = document.getElementById('titulo');
+// Emojis de planetas que serão usados
+const planetas = ['🪐', '🌍', '🌑', '🌕', '🛸', '☄️'];
 
-function criarPlaneta() {
-  const planetas = ['🪐', '🌍', '🌑', '🌕', '🛸', '☄️'];
+// Função que cria o emoji do planeta na posição do mouse
+function criarPlaneta(x, y) {
   const planeta = document.createElement('div');
   planeta.classList.add('planeta');
   planeta.textContent = planetas[Math.floor(Math.random() * planetas.length)];
 
-  // posição aleatória na horizontal
-  planeta.style.left = Math.random() * window.innerWidth + 'px';
-  planeta.style.top = window.innerHeight + 'px';
+  // Define posição do planeta
+  planeta.style.left = `${x}px`;
+  planeta.style.top = `${y}px`;
 
+  // Adiciona na tela
   document.body.appendChild(planeta);
 
-  // remover o planeta após a animação
+  // Remove depois de 2 segundos
   setTimeout(() => {
     planeta.remove();
-  }, 4000);
+  }, 2000);
 }
 
-// Quando o mouse entra no texto
-titulo.addEventListener('mouseenter', () => {
-  titulo.planetaInterval = setInterval(criarPlaneta, 300);
-});
-
-// Quando o mouse sai do texto
-titulo.addEventListener('mouseleave', () => {
-  clearInterval(titulo.planetaInterval);
+// Evento para seguir o mouse em qualquer lugar da tela
+document.addEventListener('mousemove', (event) => {
+  criarPlaneta(event.clientX, event.clientY);
 });

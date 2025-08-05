@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Planetas Animados</title>
+  <title>Planetas Seguindo o Mouse</title>
   <style>
     * {
       margin: 0;
@@ -11,10 +11,11 @@
     }
 
     body {
-      background-color: black; /* FUNDO PRETO */
-      overflow: hidden; /* Evita barra de rolagem */
+      background-color: black;
       height: 100vh;
+      overflow: hidden;
       font-family: Arial, sans-serif;
+      position: relative;
     }
 
     h1 {
@@ -22,30 +23,30 @@
       text-align: center;
       margin-top: 50px;
       font-size: 3em;
-      cursor: pointer;
     }
 
     .planeta {
       position: absolute;
       font-size: 2em;
-      animation: mover 4s linear forwards;
+      pointer-events: none;
+      animation: desaparecer 2s linear forwards;
     }
 
-    @keyframes mover {
+    @keyframes desaparecer {
       0% {
-        transform: translateY(0);
         opacity: 1;
+        transform: scale(1);
       }
       100% {
-        transform: translateY(-100vh);
         opacity: 0;
+        transform: scale(0.5);
       }
     }
   </style>
 </head>
 <body>
 
-  <h1 id="titulo">Hello, World!</h1>
+  <h1>Hello, World!</h1>
 
   <script src="main.js"></script>
 </body>
